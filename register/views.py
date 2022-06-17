@@ -5,16 +5,16 @@ from django.http import HttpResponse
 # Create your views here.
 
 def indexview(request):
-    return HttpResponse("Avaleht")
+    return render(request, 'register/index.html')
 
 
 def detailsview(request):
-    return HttpResponse("Osaühingu andmete vaade")
+    return render(request, 'register/details.html')
 
 
 def addview(request):
-    return HttpResponse("Osaühingu asutamise vorm")
+    return render(request, 'register/add.html')
 
 
 def editview(request):
-    return HttpResponse("Osaühingu osakapitali suurendamise vorm")
+    return render(request, 'register/edit.html')
