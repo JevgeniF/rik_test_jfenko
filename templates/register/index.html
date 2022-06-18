@@ -7,22 +7,119 @@
     <li><a href="/add" class="nav-link px-2 link-dark">Osaühingu asutamise vorm</a></li>
 {% endblock headerlink %}
 {% block content %}
-<div class="container mt-5">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-10">
-            <h3>Osaühingu otsing</h3>
-            <div class="row g- mt-2">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="OÜ või osaniku nimi (ja/või perekonnanimi)">
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <form class="col-md-10" method=POST action="">
+                {% csrf_token %}
+                <h3>Osaühingu otsing</h3>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" name="osayhing-nimi" class="form-control" placeholder="Osaühingu nimi">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" name="osayhing-kood" class="form-control" placeholder="Osaühingu kood"
+                               minlength="7">
+                    </div>
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="OÜ või osaniku kood">
+                <div class="row mt-2">
+                    <div class="col">
+                        <input class="form-check-input" name="if-isik" type="checkbox" value="isik">Eraisik</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="osanik-nimi" class="form-control"
+                               placeholder="Osaniku nimi ja/või perekonnanimi">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" name="osanik-kood" class="form-control" placeholder="Osaniku kood"
+                               minlength="7" maxlength="11">
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-10">
+                            <button class="btn btn-secondary btn-block" type="submit">Otsi</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-1">
-                    <button class="btn btn-secondary btn-block">Otsi</button>
-                </div>
+            </form>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10 py-5">
+                {% if osayhing_nimi or osayhing_kood %}
+                    <h4>Leitud osaühingud teie osaühingu päringu järgi (
+                        {% if osayhing_nimi %}
+                            nimi: '{{ osayhing_nimi }}'
+                        {% endif %}
+                        {% if osayhing_kood %}
+                            kood: '{{ osayhing_kood }}'
+                        {% endif %}
+                        ):</h4>
+                    <br>
+                    {% if osayhingud_by_oy_data != null %}
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nimi</th>
+                                <th scope="col">Registrikood</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for osayhing in osayhingud_by_oy_data %}
+                                <tr>
+                                    <th scope="row" class="py-3"> {{ osayhing.nimi }}</th>
+                                    <td class="py-3">{{ osayhing.registrikood }}</td>
+                                    <td><a href="/details" class="nav-link link-dark">Lisainfo</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                    {% endif %}
+                {% endif %}
+                {% if osanik_nimi or osanik_kood %}
+                    <h4>Leitud osaühingud teie osaniku päringu järgi (
+                        {% if osanik_nimi %}
+                            nimi: '{{ osanik_nimi }}'
+                        {% endif %}
+                        {% if osanik_kood %}
+                            kood: '{{ osanik_kood }}'
+                        {% endif %}
+                        )</h4>
+                    <br>
+                    {% if osayhingud_by_jurisik != null or osayhingud_by_isik != null %}
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nimi</th>
+                                <th scope="col">Registrikood</th>
+                                <th scope="col">Osaniku nimi</th>
+                                <th scope="col">Kood</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for osanik in osayhingud_by_jurisik %}
+                                <tr>
+                                    <th scope="row" class="py-3"> {{ osanik.osayhing__nimi }}</th>
+                                    <td class="py-3">{{ osanik.osayhing__registrikood }}</td>
+                                    <td class="py-3">{{ osanik.nimi }}</td>
+                                    <td class="py-3">{{ osanik.kood }}</td>
+                                    <td><a href="/details" class="nav-link link-dark">Lisainfo</a></td>
+                                </tr>
+                            {% endfor %}
+                            {% for osanik in osayhingud_by_isik %}
+                                <tr>
+                                    <th scope="row" class="py-3"> {{ osanik.osayhing__nimi }}</th>
+                                    <td class="py-3">{{ osanik.osayhing__registrikood }}</td>
+                                    <td class="py-3">{{ osanik.eesnimi }} {{ osanik.perenimi }}</td>
+                                    <td class="py-3">{{ osanik.isikukood }}</td>
+                                    <td><a href="/details" class="nav-link link-dark">Lisainfo</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
-</div>
 {% endblock content %}

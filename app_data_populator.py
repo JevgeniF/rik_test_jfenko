@@ -4,6 +4,7 @@ from datetime import date
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rik_test_jfenko.settings')
 
 import django
+
 django.setup()
 
 import random
