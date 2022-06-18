@@ -1,3 +1,6 @@
 from django.contrib import admin
+from register.models import Osayhing, Isik, JurIsik
 
-# Register your models here.
+admin.site.register(Osayhing)
+admin.site.register(Isik)
+admin.site.register(JurIsik)
