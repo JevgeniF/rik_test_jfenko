@@ -14,40 +14,37 @@ def indexview(request):
         if_isik = request.POST.get('if-isik')
 
         osayhingud_by_oy_data = Osayhing.objects.filter(nimi__contains=osayhing_nimi,
-                                                        registrikood__contains=osayhing_kood)
+                                                        registrikood__contains=osayhing_kood).order_by('nimi')
 
         osayhingud_by_jurisik = None
         osayhingud_by_isik = None
 
         if if_isik is None:
-            osayhingud_by_jurisik = JurIsik.objects.filter(nimi__contains=osanik_nimi,
-                                                           kood__contains=osanik_kood).values('nimi', 'kood',
-                                                                                              'osayhing__nimi',
-                                                                                              'osayhing__registrikood')
+            osayhingud_by_jurisik = JurIsik.objects\
+                .filter(nimi__contains=osanik_nimi, kood__contains=osanik_kood)\
+                .values('nimi', 'kood', 'osayhing__id','osayhing__nimi', 'osayhing__registrikood')\
+                .order_by('osayhing__nimi')
         else:
             if osanik_nimi:
                 ees_perenimi_array = osanik_nimi.split(' ')
                 if len(ees_perenimi_array) == 1:
-                    osayhingud_by_eesnimi = Isik.objects.filter(eesnimi__contains=ees_perenimi_array[0],
-                                                                isikukood__contains=osanik_kood).values('eesnimi',
-                                                                                                        'perenimi',
-                                                                                                        'isikukood',
-                                                                                                        'osayhing__nimi',
-                                                                                                        'osayhing__registrikood')
-                    osayhingud_by_perenimi = Isik.objects.filter(perenimi__contains=ees_perenimi_array[0],
-                                                                 isikukood__contains=osanik_kood).values('eesnimi',
-                                                                                                         'perenimi',
-                                                                                                         'isikukood',
-                                                                                                         'osayhing__nimi',
-                                                                                                         'osayhing__registrikood')
-                    osayhingud_by_isik = osayhingud_by_eesnimi.union(osayhingud_by_perenimi)
+                    osayhingud_by_eesnimi = Isik.objects\
+                        .filter(eesnimi__contains=ees_perenimi_array[0], isikukood__contains=osanik_kood)\
+                        .values('eesnimi', 'perenimi', 'isikukood', 'osayhing__id', 'osayhing__nimi',
+                                'osayhing__registrikood')
+
+                    osayhingud_by_perenimi = Isik.objects\
+                        .filter(perenimi__contains=ees_perenimi_array[0], isikukood__contains=osanik_kood)\
+                        .values('eesnimi', 'perenimi', 'isikukood', 'osayhing__id', 'osayhing__nimi',
+                                'osayhing__registrikood')
+
+                    osayhingud_by_isik = osayhingud_by_eesnimi.union(osayhingud_by_perenimi).order_by('osayhing__nimi')
                 else:
-                    osayhingud_by_isik = Isik.objects.filter(eesnimi__contains=ees_perenimi_array[0],
-                                                             perenimi__contains=ees_perenimi_array[1]).values('eesnimi',
-                                                                                                              'perenimi',
-                                                                                                              'isikukood',
-                                                                                                              'osayhing__nimi',
-                                                                                                              'osayhing__registrikood')
+                    osayhingud_by_isik = Isik.objects\
+                        .filter(eesnimi__contains=ees_perenimi_array[0], perenimi__contains=ees_perenimi_array[1])\
+                        .values('eesnimi', 'perenimi', 'isikukood', 'osayhing__id', 'osayhing__nimi',
+                                'osayhing__registrikood')\
+                        .order_by('osayhing__nimi')
 
         return render(request, 'register/index.html', {
             'osayhing_nimi': osayhing_nimi,
@@ -62,8 +59,18 @@ def indexview(request):
         return render(request, 'register/index.html', {})
 
 
-def detailsview(request):
-    return render(request, 'register/details.html')
+def detailsview(request, oy_id):
+    osayhing = Osayhing.objects.get(id=oy_id)
+    formatted_asutamiskuup = osayhing.asutamiskuup.strftime('%d.%m.%Y')
+    osanikud_jurisik = JurIsik.objects.filter(osayhing__id=oy_id)
+    osanikud_isik = Isik.objects.filter(osayhing__id=oy_id)
+
+    return render(request, 'register/details.html', {
+        'osayhing': osayhing,
+        'osanikud_jurisik': osanikud_jurisik,
+        'osanikud_isik': osanikud_isik,
+        'formatted_asutamiskuup': formatted_asutamiskuup,
+    })
 
 
 def addview(request):

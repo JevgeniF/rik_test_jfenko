@@ -7,7 +7,86 @@
     <li><a href="/" class="nav-link px-2 link-dark">Avaleht</a></li>
 {% endblock headerlink %}
 {% block content %}
-    <div class="container">
-        <h3>Osaühingu andmed</h3>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-10 py-5">
+            <h3>Osaühingu andmed</h3>
+            <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nimi</th>
+                        <th scope="col">Registrikood</th>
+                        <th scope="col">Asutamiskuupäev</th>
+                        <th scope="col">Kogukapitali suurus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="py-3"> {{ osayhing.nimi }}</th>
+                        <td class="py-3">{{ osayhing.registrikood }}</td>
+                        <td class="py-3">{{ formatted_asutamiskuup}}</td>
+                        <td class="py-3">{{ osayhing.kogukapital }} EUR</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h3>Osatajad</h3>
+            <br>
+                <h5>Juriidilised isikud</h5>
+            <div class="col-md-10 py-1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nimi</th>
+                        <th scope="col">Registrikood</th>
+                        <th scope="col">Roll</th>
+                        <th scope="col">Osa suurus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for osanik in osanikud_jurisik %}
+                    <tr>
+                        <th scope="row" class="py-3"> {{ osanik.nimi }}</th>
+                        <td class="py-3">{{ osanik.kood }}</td>
+                        <td class="py-3">
+                            {% if osanik.asutaja %}
+                                Asutaja
+                            {% endif %}</td>
+                        <td class="py-3">{{ osanik.osaniku_osa }} EUR</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            <h5>Füüsilised isikud</h5>
+            <div class="col-md-10 py-1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nimi Perenimi</th>
+                        <th scope="col">Isikukood</th>
+                        <th scope="col">Roll</th>
+                        <th scope="col">Osa suurus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for osanik in osanikud_isik %}
+                    <tr>
+                        <th scope="row" class="py-3"> {{ osanik.eesnimi }} {{ osanik.perenimi }}</th>
+                        <td class="py-3">{{ osanik.isikukood }}</td>
+                        <td class="py-3">
+                            {% if osanik.asutaja %}
+                                Asutaja
+                            {% endif %}</td>
+                        <td class="py-3">{{ osanik.osaniku_osa }} EUR</td>
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock content %}

@@ -67,7 +67,7 @@
                                 <tr>
                                     <th scope="row" class="py-3"> {{ osayhing.nimi }}</th>
                                     <td class="py-3">{{ osayhing.registrikood }}</td>
-                                    <td><a href="/details" class="nav-link link-dark">Lisainfo</a></td>
+                                    <td><a href="{% url 'Osaühingu andmete vaade' osayhing.id %}" class="nav-link link-dark">Lisainfo</a></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -103,7 +103,7 @@
                                     <td class="py-3">{{ osanik.osayhing__registrikood }}</td>
                                     <td class="py-3">{{ osanik.nimi }}</td>
                                     <td class="py-3">{{ osanik.kood }}</td>
-                                    <td><a href="/details" class="nav-link link-dark">Lisainfo</a></td>
+                                    <td><a href="{% url 'Osaühingu andmete vaade' osanik.osayhing__id %}" class="nav-link link-dark">Lisainfo</a></td>
                                 </tr>
                             {% endfor %}
                             {% for osanik in osayhingud_by_isik %}
@@ -112,7 +112,7 @@
                                     <td class="py-3">{{ osanik.osayhing__registrikood }}</td>
                                     <td class="py-3">{{ osanik.eesnimi }} {{ osanik.perenimi }}</td>
                                     <td class="py-3">{{ osanik.isikukood }}</td>
-                                    <td><a href="/details" class="nav-link link-dark">Lisainfo</a></td>
+                                    <td><a href="{% url 'Osaühingu andmete vaade' osanik.osayhing__id %}" class="nav-link link-dark">Lisainfo</a></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
