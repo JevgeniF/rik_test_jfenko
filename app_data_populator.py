@@ -42,7 +42,7 @@ def populate_osayhingud_with_oustajad(count=5):
         fake_jur_isik = JurIsik.objects.get_or_create(
             nimi=fake_nimi,
             kood=fake_kood,
-            osaniku_osa=500,
+            j_osaniku_osa=500,
             asutaja=True,
             osayhing=fake_osayhing
         )
@@ -56,7 +56,7 @@ def populate_osayhingud_with_oustajad(count=5):
                 eesnimi=fake_eesnimi,
                 perenimi=fake_perenimi,
                 isikukood=fake_isikukood,
-                osaniku_osa=500,
+                f_osaniku_osa=500,
                 asutaja=True,
                 osayhing=fake_osayhing
             )

@@ -11,8 +11,8 @@
         <div class="row d-flex justify-content-center">
 
             <div class="col-md-10 py-5">
-            <h3>Osaühingu andmed</h3>
-            <br>
+                <h3>Osaühingu andmed</h3>
+                <br>
                 <table class="table">
                     <thead>
                     <tr>
@@ -28,64 +28,65 @@
                         <td class="py-3">{{ osayhing.registrikood }}</td>
                         <td class="py-3">{{ formatted_asutamiskuup}}</td>
                         <td class="py-3">{{ osayhing.kogukapital }} EUR</td>
-
                     </tr>
                     </tbody>
                 </table>
                 <br>
                 <h3>Osatajad</h3>
-            <br>
+                <br>
                 <h5>Juriidilised isikud</h5>
-            <div class="col-md-10 py-1">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nimi</th>
-                        <th scope="col">Registrikood</th>
-                        <th scope="col">Roll</th>
-                        <th scope="col">Osa suurus</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for osanik in osanikud_jurisik %}
-                    <tr>
-                        <th scope="row" class="py-3"> {{ osanik.nimi }}</th>
-                        <td class="py-3">{{ osanik.kood }}</td>
-                        <td class="py-3">
-                            {% if osanik.asutaja %}
-                                Asutaja
-                            {% endif %}</td>
-                        <td class="py-3">{{ osanik.osaniku_osa }} EUR</td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            <h5>Füüsilised isikud</h5>
-            <div class="col-md-10 py-1">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nimi Perenimi</th>
-                        <th scope="col">Isikukood</th>
-                        <th scope="col">Roll</th>
-                        <th scope="col">Osa suurus</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for osanik in osanikud_isik %}
-                    <tr>
-                        <th scope="row" class="py-3"> {{ osanik.eesnimi }} {{ osanik.perenimi }}</th>
-                        <td class="py-3">{{ osanik.isikukood }}</td>
-                        <td class="py-3">
-                            {% if osanik.asutaja %}
-                                Asutaja
-                            {% endif %}</td>
-                        <td class="py-3">{{ osanik.osaniku_osa }} EUR</td>
+                <div class="col-md-10 py-1">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nimi</th>
+                            <th scope="col">Registrikood</th>
+                            <th scope="col">Roll</th>
+                            <th scope="col">Osa suurus</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for osanik in osanikud_jurisik %}
+                            <tr>
+                                <th scope="row" class="py-3"> {{ osanik.nimi }}</th>
+                                <td class="py-3">{{ osanik.kood }}</td>
+                                <td class="py-3">
+                                    {% if osanik.asutaja %}
+                                        Asutaja
+                                    {% endif %}</td>
+                                <td class="py-3">{{ osanik.j_osaniku_osa }} EUR</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <h5>Füüsilised isikud</h5>
+                <div class="col-md-10 py-1">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nimi Perenimi</th>
+                            <th scope="col">Isikukood</th>
+                            <th scope="col">Roll</th>
+                            <th scope="col">Osa suurus</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for osanik in osanikud_isik %}
+                            <tr>
+                                <th scope="row" class="py-3"> {{ osanik.eesnimi }} {{ osanik.perenimi }}</th>
+                                <td class="py-3">{{ osanik.isikukood }}</td>
+                                <td class="py-3">
+                                    {% if osanik.asutaja %}
+                                        Asutaja
+                                    {% endif %}</td>
+                                <td class="py-3">{{ osanik.f_osaniku_osa }} EUR</td>
 
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
