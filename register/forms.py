@@ -1,8 +1,5 @@
-from datetime import date
-
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput, DatePickerInput
-from django.forms import formset_factory, ModelForm, DateInput, modelformset_factory
 from django import forms
+from django.forms import ModelForm, modelformset_factory
 
 from .models import Osayhing, Isik, JurIsik
 
@@ -56,7 +53,7 @@ JurIsikFormSet = modelformset_factory(
             attrs={'type': 'text', 'class': 'form-control', 'placeholder': '7 numbrit',
                    'minlength': 7, 'maxlength': 7}),
         'j_osaniku_osa': forms.NumberInput(attrs={'type': 'number', 'class': 'form-control',
-                                                'placeholder': 'min 1 EUR', 'min': 1}),
+                                                  'placeholder': 'min 1 EUR', 'min': 1}),
     }
 )
 
@@ -86,6 +83,6 @@ IsikFormSet = modelformset_factory(
         'isikukood': forms.TextInput(attrs={'type': 'text', 'class': 'form-control', 'placeholder': '11 numbrit',
                                             'minlength': 11, 'maxlength': 11}),
         'f_osaniku_osa': forms.NumberInput(attrs={'type': 'number', 'class': 'form-control',
-                                                'placeholder': 'min 1 EUR', 'min': 1}),
+                                                  'placeholder': 'min 1 EUR', 'min': 1}),
     }
 )

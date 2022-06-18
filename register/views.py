@@ -1,6 +1,3 @@
-import math
-
-from django.core.mail.backends import console
 from django.shortcuts import render, redirect
 
 from .forms import JurIsikFormSet, OsayhingForm, IsikFormSet
