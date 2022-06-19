@@ -230,7 +230,7 @@ def editview(request, oy_id):
         # If updating juridical person`s capital, receiving string of object required for update.
         j_osanik_string = request.POST.get('j-osanik')
         if j_osanik_string is not None:
-            j_osanik_kood = re.findall("\d+", j_osanik_string)[0]
+            j_osanik_kood = re.findall("\(\d+\)", j_osanik_string)[0].replace('(', '').replace(')', '')
             j_osanik = JurIsik.objects.get(kood=j_osanik_kood)
 
             # Storing old shareholder capital amount for recalculation of company total capital
@@ -252,7 +252,7 @@ def editview(request, oy_id):
         # The similar procedure for physical person object, if updating physical person`s capital
         f_osanik_string = request.POST.get('f-osanik')
         if f_osanik_string is not None:
-            f_osanik_isikukood = re.findall("\d+", f_osanik_string)[0]
+            f_osanik_isikukood = re.findall("\(\d+\)", f_osanik_string)[0].replace('(', '').replace(')', '')
             f_osanik = Isik.objects.get(isikukood=f_osanik_isikukood)
 
             old_f_osaniku_osa = f_osanik.f_osaniku_osa
