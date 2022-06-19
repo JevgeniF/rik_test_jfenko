@@ -24,7 +24,10 @@ SECRET_KEY = 'django-insecure-kkmctng+jswht%stw-p7mv$eu-xyf_)m)9qx4jw3*^$8qcr98d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Hosts allowed to run a program
 ALLOWED_HOSTS = ['rik-python.azurewebsites.net', '127.0.0.1']
+
+# Trusted CSRF origins. Set to all in order to avoid problems with demo.
 CSRF_TRUSTED_ORIGINS = ['https://*']
 
 # Application definition
@@ -75,6 +78,7 @@ WSGI_APPLICATION = 'rik_test_jfenko.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# Current setup uses developer`s azure postgres database.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -107,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
+# Setup for Estonian localisation
 LANGUAGE_CODE = 'et-EE'
 
 TIME_ZONE = 'UTC'
@@ -120,6 +125,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static/'
+# Whitenoise required for proper work of static files with azure websites. However, it turns of local server statics.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type

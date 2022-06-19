@@ -4,6 +4,8 @@ import django.db.models.deletion
 from django.db import migrations, models
 
 
+# This class is a subclass of the `migrations.Migration` class, and it contains the operations to apply and unapply the
+# migration to the database.
 class Migration(migrations.Migration):
     initial = True
 

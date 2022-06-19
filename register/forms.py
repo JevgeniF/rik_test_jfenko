@@ -4,7 +4,9 @@ from django.forms import ModelForm, modelformset_factory
 from .models import Osayhing, Isik, JurIsik
 
 
+# The OsayhingForm class inherits from the ModelForm class, and it's used to create a form based on the Osayhing model.
 class OsayhingForm(ModelForm):
+    # > The `Meta` class is a special class that allows us to set extra options on our model
     class Meta:
         model = Osayhing
         fields = (
@@ -31,6 +33,7 @@ class OsayhingForm(ModelForm):
         }
 
 
+# The JurIsikForm class inherits from the ModelForm class, and it's used to create a form based on the JurIsik model.
 class JurIsikForm(ModelForm):
     class Meta:
         model = JurIsik
@@ -56,6 +59,7 @@ class JurIsikForm(ModelForm):
         }
 
 
+# The IsikForm class inherits from the ModelForm class, and it's used to create a form based on the Isik model.
 class IsikForm(ModelForm):
     class Meta:
         model = Isik
@@ -85,9 +89,10 @@ class IsikForm(ModelForm):
         }
 
 
+# The JurIsikFormSet for generation of some amount of JurIsik model forms.
 JurIsikFormSet = modelformset_factory(
-    JurIsik,
-    extra=5,
+    JurIsik,  # model
+    extra=5,    # amount of forms to generate
     fields=(
         'nimi',
         'kood',
@@ -110,9 +115,10 @@ JurIsikFormSet = modelformset_factory(
     }
 )
 
+# The IsikFormSet for generation of some amount of Isik model forms.
 IsikFormSet = modelformset_factory(
-    Isik,
-    extra=5,
+    Isik,   # model
+    extra=5,    # amount of forms to generate
     fields=(
         'eesnimi',
         'perenimi',

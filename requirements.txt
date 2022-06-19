@@ -1,3 +1,5 @@
+## Additional libraries, drivers and frameworks for application proper work.
+
 django==4.0.5
 psycopg2==2.9.3
 faker==13.13.0
