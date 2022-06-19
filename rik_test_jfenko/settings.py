@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kkmctng+jswht%stw-p7mv$eu-xyf_)m)9qx4jw3*^$8qcr98d
 DEBUG = True
 
 ALLOWED_HOSTS = ['rik-python.azurewebsites.net', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net','https://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net', 'https://127.0.0.1']
 
 # Application definition
 

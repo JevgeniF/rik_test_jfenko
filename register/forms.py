@@ -87,7 +87,7 @@ class IsikForm(ModelForm):
 
 JurIsikFormSet = modelformset_factory(
     JurIsik,
-    extra=3,
+    extra=5,
     fields=(
         'nimi',
         'kood',

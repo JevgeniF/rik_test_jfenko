@@ -20,13 +20,20 @@
         <h5>Lisa juriidilised isikud</h5>
         {{ jur_isik_formset.management_form }}
         {% for jur_form in jur_isik_formset %}
-            {{ jur_form.as_table }}
+            <details>
+                <summary>Ava jur. isiku vormi</summary>
+                {{ jur_form.as_table }}
+            </details>
+            <br>
         {% endfor %}
         <br>
         <h5>Lisa füüsilised isikud</h5>
         {{ isik_formset.management_form }}
         {% for isik_form in isik_formset %}
-            {{ isik_form.as_table }}
+            <details>
+                <summary>Ava isiku vormi</summary>
+                {{ isik_form.as_table }}
+            </details>
         {% endfor %}
         <div class="row mt-2">
             <div class="col-md-10">
