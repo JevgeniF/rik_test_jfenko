@@ -15,82 +15,18 @@
             {{ kapital_error }}
         {% endif %}
         <br>
-        {{ osayhing_form.non_field_errors }}
-        <div class="col input-group mb-3">
-            <div class="row">
-                <div class="col">
-                    {{ osayhing_form.nimi.label_tag }}
-                    {{ osayhing_form.nimi }}
-                </div>
-                <div class="col">
-                    {{ osayhing_form.registrikood.label_tag }}
-                    {{ osayhing_form.registrikood }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    {{ osayhing_form.asutamiskuup.label_tag }}
-                    {{ osayhing_form.asutamiskuup }}
-                </div>
-                <div class="col">
-                    {{ osayhing_form.kogukapital.label_tag }}
-                    {{ osayhing_form.kogukapital }}
-                </div>
-            </div>
-        </div>
+        {{ osayhing_form.as_table }}
         <br>
         <h5>Lisa juriidilised isikud</h5>
         {{ jur_isik_formset.management_form }}
         {% for jur_form in jur_isik_formset %}
-            <br>
-            {{ jur_form.non_field_errors }}
-            <div class="col input-group mb-3">
-                <div class="row">
-                    <div class="col">
-                        {{ jur_form.nimi.label_tag }}
-                        {{ jur_form.nimi }}
-                    </div>
-                    <div class="col">
-                        {{ jur_form.kood.label_tag }}
-                        {{ jur_form.kood }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        {{ jur_form.j_osaniku_osa.label_tag }}
-                        {{ jur_form.j_osaniku_osa }}
-                    </div>
-                </div>
-            </div>
+            {{ jur_form.as_table }}
         {% endfor %}
         <br>
         <h5>Lisa füüsilised isikud</h5>
         {{ isik_formset.management_form }}
         {% for isik_form in isik_formset %}
-            <br>
-            {{ isik_form.non_field_errors }}
-            <div class="col input-group mb-3">
-                <div class="row">
-                    <div class="col">
-                        {{ isik_form.eesnimi.label_tag }}
-                        {{ isik_form.eesnimi }}
-                    </div>
-                    <div class="col">
-                        {{ isik_form.perenimi.label_tag }}
-                        {{ isik_form.perenimi }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        {{ isik_form.isikukood.label_tag }}
-                        {{ isik_form.isikukood }}
-                    </div>
-                    <div class="col">
-                        {{ isik_form.f_osaniku_osa.label_tag }}
-                        {{ isik_form.f_osaniku_osa }}
-                    </div>
-                </div>
-            </div>
+            {{ isik_form.as_table }}
         {% endfor %}
         <div class="row mt-2">
             <div class="col-md-10">

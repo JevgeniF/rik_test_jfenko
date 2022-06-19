@@ -9,6 +9,7 @@ from .models import Osayhing, Isik, JurIsik
 # Create your views here.
 
 def indexview(request):
+
     if request.method == 'POST':
         osayhing_nimi = request.POST['osayhing-nimi'].strip()
         osayhing_kood = request.POST['osayhing-kood'].strip()
@@ -48,8 +49,7 @@ def indexview(request):
                         .values('eesnimi', 'perenimi', 'isikukood', 'osayhing__id', 'osayhing__nimi',
                                 'osayhing__registrikood') \
                         .order_by('osayhing__nimi')
-
-        return render(request, 'register/index.html', {
+        context = {
             'osayhing_nimi': osayhing_nimi,
             'osayhing_kood': osayhing_kood,
             'osanik_nimi': osanik_nimi,
@@ -57,9 +57,11 @@ def indexview(request):
             'osayhingud_by_oy_data': osayhingud_by_oy_data,
             'osayhingud_by_jurisik': osayhingud_by_jurisik,
             'osayhingud_by_isik': osayhingud_by_isik
-        })
+        }
     else:
-        return render(request, 'register/index.html', {})
+        context = {}
+
+    return render(request, 'register/index.html', context)
 
 
 def detailsview(request, oy_id):
@@ -68,15 +70,19 @@ def detailsview(request, oy_id):
     osanikud_jurisik = JurIsik.objects.filter(osayhing__id=oy_id)
     osanikud_isik = Isik.objects.filter(osayhing__id=oy_id)
 
-    return render(request, 'register/details.html', {
+    context = {
         'osayhing': osayhing,
         'osanikud_jurisik': osanikud_jurisik,
         'osanikud_isik': osanikud_isik,
         'formatted_asutamiskuup': formatted_asutamiskuup,
-    })
+    }
+    return render(request, 'register/details.html', context)
 
 
 def addview(request):
+
+    context = {}
+
     kapital_error = None
     osade_sum = 0
 
@@ -85,11 +91,12 @@ def addview(request):
         jur_isik_formset = JurIsikFormSet(queryset=JurIsik.objects.none())
         isik_formset = IsikFormSet(queryset=JurIsik.objects.none())
 
-        return render(request, 'register/add.html', {
+        context = {
             'osayhing_form': osayhing_form,
             'jur_isik_formset': jur_isik_formset,
             'isik_formset': isik_formset
-        })
+        }
+
     if request.method == 'POST':
         osayhing_form = OsayhingForm(request.POST)
         jur_isik_formset = JurIsikFormSet(request.POST)
@@ -125,15 +132,18 @@ def addview(request):
             else:
                 kapital_error = 'Kogukaiptali suurus on erinev osaniku osade summadega'
 
-        return render(request, 'register/add.html', {
+        context = {
             'kapital_error': kapital_error,
             'osayhing_form': osayhing_form,
             'jur_isik_formset': jur_isik_formset,
             'isik_formset': isik_formset,
-        })
+        }
+
+    return render(request, 'register/add.html', context)
 
 
 def editview(request, oy_id):
+
     osayhing = Osayhing.objects.get(id=oy_id)
     formatted_asutamiskuup = osayhing.asutamiskuup.strftime('%d.%m.%Y')
     osanikud_jurisik = JurIsik.objects.filter(osayhing__id=oy_id)

@@ -88,7 +88,6 @@ class IsikForm(ModelForm):
 JurIsikFormSet = modelformset_factory(
     JurIsik,
     extra=3,
-    can_delete=True,
     fields=(
         'nimi',
         'kood',
@@ -114,7 +113,6 @@ JurIsikFormSet = modelformset_factory(
 IsikFormSet = modelformset_factory(
     Isik,
     extra=5,
-    can_delete=True,
     fields=(
         'eesnimi',
         'perenimi',
