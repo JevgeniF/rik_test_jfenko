@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['rik-python.azurewebsites.net', '127.0.0.1']
 
 # Trusted CSRF origins. Set to all in order to avoid problems with demo.
-CSRF_TRUSTED_ORIGINS = ['https://*']
+CSRF_TRUSTED_ORIGINS = ['https://*', 'https://*.azurewebsites.net/', 'https://127.0.0.1']
 
 # Application definition
 
