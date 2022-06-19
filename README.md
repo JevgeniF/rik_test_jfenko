@@ -127,7 +127,7 @@ Each row in search results contains ```Lisainfo``` link, which leads to Private 
 ### 'Osaühingu Andmete Vaade'
 Shows all PLC data including shareholders.  
 Additional functionality added in order to change showed PLC shareholders capitals, or add another shareholder.  
-In order to use it, use link ```Muuda osakapitalide suurus või lisa osakaal```
+In order to use it, use link ```Muuta osakapitalide suurus või lisada osanikud```
 
 ### 'Osaühingu Osakapitali Suurendamise Worm'
 The page allows to change capital of one exact shareholder at once or add another juridical person or physical person or 

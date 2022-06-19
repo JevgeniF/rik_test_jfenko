@@ -12,7 +12,7 @@
         <div class="row d-flex justify-content-center">
 
             <div class="col-md-10 py-5">
-                <h3>Suurenda osaühingu osakapital</h3>
+                <h3>Suurendada osaühingu osakapital</h3>
                 <br>
                 <table class="table">
                     <thead>
@@ -33,7 +33,7 @@
                     </tbody>
                 </table>
                 <br>
-                <h3>Osatajad</h3>
+                <h3>Osanikud</h3>
                 <br>
                 <h5>Juriidilised isikud</h5>
                 <div class="col-md-10 py-1">
@@ -63,7 +63,7 @@
                                             <input type="hidden" name="j-osanik" value="{{ osanik }}"/>
                                             <input name='j-osaniku-osa' value="{{ osanik.j_osaniku_osa }}"/> EUR
                                             <button class="btn-sm btn-secondary" name="{{ osanik.id }}" type="submit"
-                                                    onclick="">Muuda osa suurust
+                                                    onclick="">Muuta osa suurust
                                             </button>
                                         </form>
                                     </div>
@@ -75,7 +75,7 @@
                         </tbody>
                     </table>
                     <details>
-                        <summary>Lisa juriidilist isikut</summary>
+                        <summary>Lisa juriidiline isik</summary>
                         {{ jur_isik_form.non_field_errors }}
                         <form class="col input-group mb-3" method="post">
                             {% csrf_token %}
@@ -131,7 +131,7 @@
                                             <input type="hidden" name="f-osanik" value="{{ osanik }}"/>
                                             <input name='f-osaniku-osa' value="{{ osanik.f_osaniku_osa }}"/> EUR
                                             <button class="btn-sm btn-secondary" name="{{ osanik.id }}" type="submit"
-                                                    onclick="">Muuda osa suurust
+                                                    onclick="">Muuta osa suurust
                                             </button>
                                         </form>
                                     </div>
@@ -141,7 +141,7 @@
                         </tbody>
                     </table>
                     <details>
-                        <summary>Lisa füüsilist isikut</summary>
+                        <summary>Lisa füüsiline isik</summary>
                         {{ isik_form.non_field_errors }}
                         <form class="col input-group mb-3" method="post">
                             {% csrf_token %}
