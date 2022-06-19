@@ -1,6 +1,8 @@
+import re
+
 from django.shortcuts import render, redirect
 
-from .forms import JurIsikFormSet, OsayhingForm, IsikFormSet
+from .forms import JurIsikFormSet, OsayhingForm, IsikFormSet, JurIsikForm, IsikForm
 from .models import Osayhing, Isik, JurIsik
 
 
@@ -61,10 +63,12 @@ def indexview(request):
 
 
 def detailsview(request, oy_id):
+
     osayhing = Osayhing.objects.get(id=oy_id)
     formatted_asutamiskuup = osayhing.asutamiskuup.strftime('%d.%m.%Y')
     osanikud_jurisik = JurIsik.objects.filter(osayhing__id=oy_id)
     osanikud_isik = Isik.objects.filter(osayhing__id=oy_id)
+
 
     return render(request, 'register/details.html', {
         'osayhing': osayhing,
@@ -131,5 +135,89 @@ def addview(request):
         })
 
 
-def editview(request):
-    return render(request, 'register/edit.html')
+def editview(request, oy_id):
+    osayhing = Osayhing.objects.get(id=oy_id)
+    formatted_asutamiskuup = osayhing.asutamiskuup.strftime('%d.%m.%Y')
+    osanikud_jurisik = JurIsik.objects.filter(osayhing__id=oy_id)
+    osanikud_isik = Isik.objects.filter(osayhing__id=oy_id)
+
+    if request.method == 'GET':
+        jur_isik_form = JurIsikForm(request.GET or None)
+        isik_form = IsikForm(request.GET or None)
+
+        return render(request, 'register/edit.html', {
+            'osayhing': osayhing,
+            'osanikud_jurisik': osanikud_jurisik,
+            'osanikud_isik': osanikud_isik,
+            'formatted_asutamiskuup': formatted_asutamiskuup,
+            'jur_isik_form': jur_isik_form,
+            'isik_form': isik_form,
+        })
+
+    if request.method == 'POST':
+        j_osanik_string = request.POST.get('j-osanik')
+        if j_osanik_string is not None:
+            j_osanik_kood = re.findall("\d+", j_osanik_string)[0]
+            j_osanik = JurIsik.objects.get(kood=j_osanik_kood)
+
+            old_j_osaniku_osa = j_osanik.j_osaniku_osa
+            try:
+                new_j_osaniku_osa = int(request.POST['j-osaniku-osa'])
+                kapital = osayhing.kogukapital + new_j_osaniku_osa - old_j_osaniku_osa
+                if kapital >= 2500:
+                    j_osanik.j_osaniku_osa = new_j_osaniku_osa
+                    j_osanik.save()
+                    osayhing.kogukapital = kapital
+                    osayhing.save()
+                    return redirect('Osaühingu andmete vaade', osayhing.id)
+            except ValueError:
+                print("Uue osaniku osa value not int")
+
+        f_osanik_string = request.POST.get('f-osanik')
+        if f_osanik_string is not None:
+            f_osanik_isikukood = re.findall("\d+", f_osanik_string)[0]
+            f_osanik = Isik.objects.get(isikukood=f_osanik_isikukood)
+
+            old_f_osaniku_osa = f_osanik.f_osaniku_osa
+            try:
+                new_f_osaniku_osa = int(request.POST['f-osaniku-osa'])
+                kapital = osayhing.kogukapital + new_f_osaniku_osa - old_f_osaniku_osa
+                if kapital >= 2500:
+                    f_osanik.f_osaniku_osa = new_f_osaniku_osa
+                    f_osanik.save()
+                    osayhing.kogukapital = kapital
+                    osayhing.save()
+                    return redirect('Osaühingu andmete vaade', osayhing.id)
+            except ValueError:
+                print("Uue osaniku osa value not int")
+
+        jur_isik_form = JurIsikForm(request.POST)
+        isik_form = IsikForm(request.POST)
+        if jur_isik_form.is_valid():
+            jur_isik = jur_isik_form.save(commit=False)
+            osayhing.kogukapital += jur_isik.j_osaniku_osa
+            osayhing.save()
+
+            jur_isik.osayhing = osayhing
+            jur_isik.asutaja = False
+            jur_isik.save()
+
+        if isik_form.is_valid():
+            isik = isik_form.save(commit=False)
+            osayhing.kogukapital += isik.f_osaniku_osa
+            osayhing.save()
+
+            isik.osayhing = osayhing
+            isik.asutaja = False
+            isik.save()
+
+            return redirect('Osaühingu andmete vaade', osayhing.id)
+
+
+
+    return render(request, 'register/edit.html', {
+        'osayhing': osayhing,
+        'osanikud_jurisik': osanikud_jurisik,
+        'osanikud_isik': osanikud_isik,
+        'formatted_asutamiskuup': formatted_asutamiskuup,
+    })

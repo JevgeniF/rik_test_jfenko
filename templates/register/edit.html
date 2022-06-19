@@ -7,7 +7,171 @@
     <li><a href="/" class="nav-link px-2 link-dark">Avaleht</a></li>
 {% endblock headerlink %}
 {% block content %}
-    <div class="container">
-        <h3>Suurenda osaühingu osakapital</h3>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-10 py-5">
+                <h3>Suurenda osaühingu osakapital</h3>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nimi</th>
+                        <th scope="col">Registrikood</th>
+                        <th scope="col">Asutamiskuupäev</th>
+                        <th scope="col">Kogukapitali suurus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="py-3"> {{ osayhing.nimi }}</th>
+                        <td class="py-3">{{ osayhing.registrikood }}</td>
+                        <td class="py-3">{{ formatted_asutamiskuup }}</td>
+                        <td class="py-3">{{ osayhing.kogukapital }} EUR</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h3>Osatajad</h3>
+                <br>
+                <h5>Juriidilised isikud</h5>
+                <div class="col-md-10 py-1">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nimi</th>
+                            <th scope="col">Registrikood</th>
+                            <th scope="col">Roll</th>
+                            <th scope="col">Osa suurus</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for osanik in osanikud_jurisik %}
+                            <tr>
+                                <th scope="row" class="py-3"> {{ osanik.nimi }}</th>
+                                <td class="py-3">{{ osanik.kood }}</td>
+                                <td class="py-3">
+                                    {% if osanik.asutaja %}
+                                        Asutaja
+                                    {% endif %}</td>
+
+                                <td>
+                                    <div class="row mt-2">
+                                        <form method=POST action="./{{ osayhing.id }}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="j-osanik" value="{{ osanik }}"/>
+                                            <input name='j-osaniku-osa' value="{{ osanik.j_osaniku_osa }}"/> EUR
+                                            <button class="btn-sm btn-secondary" name="{{ osanik.id }}" type="submit"
+                                                    onclick="">Muuda osa suurust
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <details>
+                        <summary>Lisa juriidilist isikut</summary>
+                        {{ jur_isik_form.non_field_errors }}
+                        <form class="col input-group mb-3" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    {{ jur_isik_form.nimi.label_tag }}
+                                    {{ jur_isik_form.nimi }}
+                                </div>
+                                <div class="col">
+                                    {{ jur_isik_form.kood.label_tag }}
+                                    {{ jur_isik_form.kood }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ jur_isik_form.j_osaniku_osa.label_tag }}
+                                    {{ jur_isik_form.j_osaniku_osa }}
+                                </div>
+                            </div>
+                            <div class="col mx-2 py-4">
+                                <button class="btn-sm btn-secondary" name="jur_isik_add" type="submit" onclick="">Lisa
+                                </button>
+                                </div>
+                        </form>
+                    </details>
+                </div>
+                <br>
+                <h5>Füüsilised isikud</h5>
+                <div class="col-md-10 py-1">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nimi Perenimi</th>
+                            <th scope="col">Isikukood</th>
+                            <th scope="col">Roll</th>
+                            <th scope="col">Osa suurus</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for osanik in osanikud_isik %}
+                            <tr>
+                                <th scope="row" class="py-3"> {{ osanik.eesnimi }} {{ osanik.perenimi }}</th>
+                                <td class="py-3">{{ osanik.isikukood }}</td>
+                                <td class="py-3">
+                                    {% if osanik.asutaja %}
+                                        Asutaja
+                                    {% endif %}</td>
+                                <td class="py-3">{{ osanik.f_osaniku_osa }} EUR</td>
+                                <td>
+                                    <div class="row mt-2">
+                                        <form method=POST action="">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="f-osanik" value="{{ osanik }}"/>
+                                            <input name='f-osaniku-osa' value="{{ osanik.f_osaniku_osa }}"/> EUR
+                                            <button class="btn-sm btn-secondary" name="{{ osanik.id }}" type="submit"
+                                                    onclick="">Muuda osa suurust
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                <details>
+                        <summary>Lisa füüsilist isikut</summary>
+                        {{ isik_form.non_field_errors }}
+                        <form class="col input-group mb-3" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    {{ isik_form.eesnimi.label_tag }}
+                                    {{ isik_form.eesnimi }}
+                                </div>
+                                <div class="col">
+                                    {{ isik_form.perenimi.label_tag }}
+                                    {{ isik_form.perenimi }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ isik_form.isikukood.label_tag }}
+                                    {{ isik_form.isikukood }}
+                                </div>
+                                <div class="col">
+                                    {{ isik_form.f_osaniku_osa.label_tag }}
+                                    {{ isik_form.f_osaniku_osa }}
+                                </div>
+                            </div>
+                            <div class="col mx-2 py-4">
+                                <button class="btn-sm btn-secondary" name="isik_add" type="submit" onclick="">Lisa
+                                </button>
+                                </div>
+                        </form>
+                    </details>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}
