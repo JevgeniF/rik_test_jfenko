@@ -280,6 +280,8 @@ def editview(request, oy_id):
             jur_isik.asutaja = False
             jur_isik.save()
 
+            return redirect('Osaühingu andmete vaade', osayhing.id)
+
         if isik_form.is_valid():
             isik = isik_form.save(commit=False)
             osayhing.kogukapital += isik.f_osaniku_osa
