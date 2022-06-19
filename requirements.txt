@@ -1,3 +1,4 @@
 django==4.0.5
 psycopg2==2.9.3
 faker==13.13.0
+whitenoise==6.2.0
