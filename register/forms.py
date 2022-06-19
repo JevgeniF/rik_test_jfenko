@@ -30,19 +30,20 @@ class OsayhingForm(ModelForm):
                                                     'placeholder': 'min 2500', 'min': 2500}),
         }
 
+
 class JurIsikForm(ModelForm):
     class Meta:
         model = JurIsik
         fields = (
-                     'nimi',
-                     'kood',
-                     'j_osaniku_osa'
-                 )
+            'nimi',
+            'kood',
+            'j_osaniku_osa'
+        )
         labels = {
-                     'nimi': 'Jur. Isiku Nimi',
-                     'kood': 'Registrikood',
-                     'j_osaniku_osa': 'Osaniku osa (EUR)'
-                 }
+            'nimi': 'Jur. Isiku Nimi',
+            'kood': 'Registrikood',
+            'j_osaniku_osa': 'Osaniku osa (EUR)'
+        }
         widgets = {
             'nimi': forms.TextInput(attrs={'type': 'text', 'class': 'form-control',
                                            'placeholder': 'minlength 3 max 100 märgi', 'minlength': 3,
@@ -54,21 +55,22 @@ class JurIsikForm(ModelForm):
                                                       'placeholder': 'min 1 EUR', 'min': 1}),
         }
 
+
 class IsikForm(ModelForm):
     class Meta:
         model = Isik
         fields = (
-                     'eesnimi',
-                     'perenimi',
-                     'isikukood',
-                     'f_osaniku_osa'
-                 )
+            'eesnimi',
+            'perenimi',
+            'isikukood',
+            'f_osaniku_osa'
+        )
         labels = {
-                     'eesnimi': 'Eesnimi',
-                     'perenimi': 'Perenimi',
-                     'isikukood': 'Isikukood',
-                     'f_osaniku_osa': 'Osaniku osa (EUR)'
-                 }
+            'eesnimi': 'Eesnimi',
+            'perenimi': 'Perenimi',
+            'isikukood': 'Isikukood',
+            'f_osaniku_osa': 'Osaniku osa (EUR)'
+        }
         widgets = {
             'eesnimi': forms.TextInput(attrs={'type': 'text', 'class': 'form-control',
                                               'placeholder': 'minlength 3 max 100 märgi', 'minlength': 3,

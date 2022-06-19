@@ -39,7 +39,7 @@ def populate_osayhingud_with_oustajad(count=5):
         fake_nimi = faker.company()
         fake_kood = random.randint(1000000, 9999999)
 
-        fake_jur_isik = JurIsik.objects.get_or_create(
+        JurIsik.objects.get_or_create(
             nimi=fake_nimi,
             kood=fake_kood,
             j_osaniku_osa=500,
@@ -52,7 +52,7 @@ def populate_osayhingud_with_oustajad(count=5):
             fake_perenimi = fakerEe.last_name_est()
             fake_isikukood = fakerEe.ssn(18, 70)
 
-            fake_isik = Isik.objects.get_or_create(
+            Isik.objects.get_or_create(
                 eesnimi=fake_eesnimi,
                 perenimi=fake_perenimi,
                 isikukood=fake_isikukood,

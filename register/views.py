@@ -63,12 +63,10 @@ def indexview(request):
 
 
 def detailsview(request, oy_id):
-
     osayhing = Osayhing.objects.get(id=oy_id)
     formatted_asutamiskuup = osayhing.asutamiskuup.strftime('%d.%m.%Y')
     osanikud_jurisik = JurIsik.objects.filter(osayhing__id=oy_id)
     osanikud_isik = Isik.objects.filter(osayhing__id=oy_id)
-
 
     return render(request, 'register/details.html', {
         'osayhing': osayhing,
@@ -212,8 +210,6 @@ def editview(request, oy_id):
             isik.save()
 
             return redirect('Osaühingu andmete vaade', osayhing.id)
-
-
 
     return render(request, 'register/edit.html', {
         'osayhing': osayhing,
