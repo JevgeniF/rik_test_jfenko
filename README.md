@@ -45,16 +45,15 @@ The application usability was tested with Edge Browser in Windows 11 OS.
     By default the server address is https://127.0.0.1:8000
 
 #### !!! In case if local server can't find bootstrap css files and UI looks ugly !!!
-The source code on GitHub is used for deployment and updated of online demo (please find link above), therefore the
-Whitenoise library is used for proper setup of static files (including css and js for Microsoft Azure Web App Services)
-
-Disable the whitenoise by commenting out whitenoise middleware from ```MIDDLEWARE = []``` section
+The source code on GitHub is used for deployment and update of online demo (please find link above), therefore the
+Whitenoise library is used for proper setup of static files (including css and js) for Microsoft Azure Web App Services
+Disable the Whitenoise by commenting out Whitenoise middleware from ```MIDDLEWARE = []``` section
 in ```rik_test_jfenko/setup.py``` file:
 ~~~
 'whitenoise.middleware.WhiteNoiseMiddleware'
 ~~~
 
-Also comment out from static files section in ```rik_test_jfenko/setup.py```
+Also comment out from static files section in ```rik_test_jfenko/setup.py```:
 ~~~
 STATIC_ROOT = BASE_DIR / 'static/'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -66,9 +65,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static/']
 
 ### Additional setup:
 ### Database
-By default, the database provided by me, as developer and stored online. The database is PostgreSQL v13.
+By default, the database provided by me, as developer, and stored online. The database is PostgreSQL v13.
 
-In order to use local database or another online database service, 
+In order to use local database or another online database service: 
 1. please change database settings in
 ```rik_test_jfenko/setup.py``` file:
 ~~~
@@ -87,7 +86,7 @@ DATABASES = {
 ##### Please note, that compatibility with other DB providers, than Postgres, was not checked.
 
 2. Delete migrations file ```0001_initial.py``` in ```register/migrations``` folder.
-3. Run ```python manage.py makemmigrations``` to create new migrations file.
+3. Run ```python manage.py makemigrations``` to create new migrations file.
 4. Run ```python manage.py migrate``` to migrate project models to database. This operation will automatically create  
     all required database tables in accordance with ```register/models.py``` file and Django setups.
 
