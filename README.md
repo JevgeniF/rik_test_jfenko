@@ -37,7 +37,7 @@ The application usability was tested with Edge Browser in Windows 11 OS.
 ### Running from source code:
 1. Clone GitHub Repository: https://github.com/JevgeniF/rik_test_jfenko.git  
 2. Open bash terminal in folder cloned from repository
-3. Create virtual environment by running ```python -m venv env ```  
+3. Create virtual environment by running ```python -m venv venv ```  
 4. Activate virtual environment by command ```venv\Scripts\activate```
 5. The source code has ```requirements.txt``` file with all required frameworks and libraries.  
     Install them by ```pip install -r requirements.txt  ```
